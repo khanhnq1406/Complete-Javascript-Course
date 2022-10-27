@@ -85,7 +85,31 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
 ### Equality Operators: == vs. ===
 The difference between == and === is that: **loose equality (==)** converts the variable values to the same type before performing comparison. This is called type coercion. **Strict equality (===) (recommended to use)** does not do any type conversion (coercion) and returns true only if both values and types are identical for the two variables being compared.
 
+## JavaScript Fundamentals – Part 2
+### Strict mode
+Strict mode makes several changes to normal JavaScript semantics:
+- Eliminates some JavaScript silent errors by changing them to throw errors.
+- Fixes mistakes that make it difficult for JavaScript engines to perform optimizations: strict mode code can sometimes be made to run faster than identical code that's not strict mode.
+- Prohibits some syntax likely to be defined in future versions of ECMAScript.
+- 
+### Arguments vs Parameters
+- A parameter is a named variable passed into a function. Parameter variables are used to import arguments into functions.
+- Function parameters are the names listed in the function's definition.
+- Function arguments are the real values passed to the function.
+- Parameters are initialized to the values of the arguments supplied.
 
-# Links
+### Function Declarations vs. Expressions
+#### The first difference: a name
+When you create a function with a name, that is a function declaration. The name may be omitted in function expressions, making that function “anonymous”.
+#### Hoisting
+Hoisting refers to the availability of functions and variables “at the top” of your code, as opposed to only after they are created. The objects are initialized at compile time and available anywhere in your file. <br>
+**Function declarations are hoisted but function expressions are not.**
+#### Summary
+In short, use function declarations when you want to create a function on the global scope and make it available throughout your code. Use function expressions to limit where the function is available, keep your global scope light, and maintain clean syntax.
+# Links bibliography
 - [Var, Let, and Const – What's the Difference?](https://www.freecodecamp.org/news/var-let-and-const-whats-the-difference/)
 - [JavaScript Operators](https://www.w3schools.com/js/js_operators.asp)
+- [Strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode#strict_mode_overview)
+- [Parameter](https://developer.mozilla.org/en-US/docs/Glossary/Parameter#:~:text=Note%20the%20difference%20between%20parameters,values%20passed%20to%20the%20function.)
+- [When to use a function declaration vs. a function expression](https://www.freecodecamp.org/news/when-to-use-a-function-declarations-vs-a-function-expression-70f15152a0a0/)
+- 

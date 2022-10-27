@@ -3,7 +3,7 @@ let js = 'amazing';
 console.log(1 + 14 + 16 + 15 + 24);
 
 // Values and Variables
-console.log('------- Values and Variables -------');
+console.log('--------- Values and Variables ---------');
 const myFirstName = "Nguyen";
 const myLastName = "Quoc Khanh";
 let person = 'Khanh';
@@ -25,7 +25,7 @@ console.log(population);
 
 
 // Data types
-console.log('------- Data types -------');
+console.log('--------- Data types ---------');
 let javascriptIsFun = true;
 console.log(typeof javascriptIsFun);
 
@@ -48,12 +48,11 @@ console.log(typeof country);
 console.log(typeof language);
 
 // let, const and var
-console.log('------- let, const and var -------');
 language = 'Vietnamese'
 // isIsland = true; //TypeError: Assignment to constant variable.
 
 // Basic operators
-console.log('------- Basic operators -------');
+console.log('--------- Basic operators ---------');
 const now = 2022;
 const ageKhanh = now - 2001;
 const ageKane = now - 2012;
@@ -74,6 +73,7 @@ x--; // x = x - 1
 console.log(x);
 
 // Comparision operators
+console.log('--------- Comparision operators ---------');
 console.log(ageKane > ageKhanh);
 console.log(ageKhanh >= 18);
 
@@ -90,6 +90,7 @@ let averagePopulation = 33000000;
 console.log(population < averagePopulation);
 
 // String
+console.log('--------- String ---------');
 const birthYear = 2001;
 const job = 'student';
 const khanh = "I'm " + firstName + ', a ' + (year - birthYear) + ' year old ' + job + '!';
@@ -112,6 +113,7 @@ console.log(description);
 1. If your country's population is greater that 33 million, log a string like this to the console: 'Portugal's population is above average'. Otherwise, log a string like 'Portugal's population is 22 million below average' (the 22 is the average of 33 minus the country's population)
 2. After checking the result, change the population temporarily to 13 and then to 130. See the different results, and set the population back to original
 */
+console.log('--------- Taking Decisions: if/else Statements ---------');
 if (population > averagePopulation) {
     console.log(`${country}'s population is above average`);
 }
@@ -136,6 +138,7 @@ else {
 }
 
 //Type Conversion and Coercion
+console.log('--------- Type Conversion and Coercion ---------');
 console.log('9' - '5'); // 4
 console.log('19' - '13' + '17'); // 617
 console.log('19' - '13' + 17); // 23
@@ -143,6 +146,7 @@ console.log('123' < 57); // false
 console.log(5 + 6 + '4' + 9 - 4 - 2); // 1143
 
 // Truthy and Falsy Values
+console.log('--------- Truthy and Falsy Values ---------');
 console.log(Boolean(0));
 console.log(Boolean(undefined));
 console.log(Boolean('Khanh'));
@@ -163,35 +167,35 @@ if (height) {
 }
 
 // Equality Operators: == vs. ===
-// console.log(`---Equality Operators: == vs. ===---`);
-// const favourite = Number(prompt(`What's your favourite number?`));
-// console.log(favourite);
-// console.log(typeof favourite);
+console.log('--------- Equality Operators: == vs. === ---------');
+const favourite = Number(prompt(`What's your favourite number?`));
+console.log(favourite);
+console.log(typeof favourite);
 
-// if (favourite === 23) {
-//     console.log (`Cool. 23 is an amazing number!`);
-// } else if (favourite === 9) {
-//     console.log(`9 is also a cool number`);
-// } else {
-//     console.log(`Number is not 23 or 9`);
-// }
+if (favourite === 23) {
+    console.log (`Cool. 23 is an amazing number!`);
+} else if (favourite === 9) {
+    console.log(`9 is also a cool number`);
+} else {
+    console.log(`Number is not 23 or 9`);
+}
 
-// if (favourite !== 9) console.log(`Why not 9?`);
+if (favourite !== 9) console.log(`Why not 9?`);
 
-// // Assignment
-// let numNeighbours = Number(prompt(`How many neighbour countries does your country
-// have?`));
-// if (numNeighbours === 1) {
-//     console.log(`Only 1 border`);
-// }
-// else if (numNeighbours > 1) {
-//     console.log(`More than 1 border`);
-// } else {
-//     console.log(`No borders`);
-// }
+// Assignment
+let numNeighbours = Number(prompt(`How many neighbour countries does your country
+have?`));
+if (numNeighbours === 1) {
+    console.log(`Only 1 border`);
+}
+else if (numNeighbours > 1) {
+    console.log(`More than 1 border`);
+} else {
+    console.log(`No borders`);
+}
 
 // Logical Operators
-console.log(`---Logical Operators---`);
+console.log('--------- Logical Operators ---------');
 if (language === 'English' && population < 50 && !isIsland) {
     console.log(`You should live in ${country} :)`);
 } else {
@@ -207,7 +211,7 @@ if (language === 'English' && population < 50 && !isIsland) {
 }
 
 // The switch Statement
-console.log(`---------The switch Statement---------`);
+console.log(`--------- The switch Statement ---------`);
 const day = `sunday`;
 
 if (day === `monday`) {
@@ -252,7 +256,7 @@ switch (language) {
         console.log(`Great language too :D`);
 }
 // The conditional (ternary) operator
-console.log(`---------The conditional (ternary) operator---------`);
+console.log(`--------- The conditional (ternary) operator ---------`);
 const age = 16;
 age >= 18 ? console.log(`I like to drink wine`) : console.log(`I like to drink water`);
 
