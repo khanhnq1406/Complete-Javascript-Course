@@ -93,7 +93,7 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
 | \|       | OR                   | 5 \| 1  | 0101 \| 0001 | 0101   | 5       |
 | ~        | NOT                  | ~ 5     | ~0101        | 1010   | 10      |
 | ^        | XOR                  | 5 ^ 1   | 0101 ^ 0001  | 0100   | 4       |
-| <<       | left shift           | 5 << 1  | 0101 << 1    | 1010   | 10      |
+| <<       | left shift           | 5 << 1  | 0101 <<img 1 | 1010   | 10      |
 | >>       | right shift          | 5 >> 1  | 0101 >> 1    | 0010   | 2       |
 | >>>      | unsigned right shift | 5 >>> 1 | 0101 >>> 1   | 0010   | 2       |
 
@@ -169,6 +169,78 @@ In short, use function declarations when you want to create a function on the gl
 3. Don't be afraid to do as much research as you have to.
 4. For bigger problems, write **pseudo-code** before writing the actual code.
 
+## HTML & CSS
+
+### HTML
+
+#### Element
+
+An HTML element is defined by a start tag, some content, and an end tag: <br>
+`<tagname> Content goes here... </tagname>` <br>
+
+<img src = "https://mason.gmu.edu/~kshiffl4/375/HTML_Tags.jpg"></img>
+
+#### HTML tag
+
+##### HTML Headings
+
+HTML headings are defined with the `<h1>` to `<h6>` tags.
+`<h1>` defines the most important heading. `<h6>` defines the least important heading
+<br>
+
+```
+<h1>This is heading 1</h1>
+<h2>This is heading 2</h2>
+<h3>This is heading 3</h3>
+```
+
+##### HTML Paragraphs
+
+HTML paragraphs are defined with the `<p>` tag:
+
+```
+<p>This is a paragraph.</p>
+<p>This is another paragraph.</p>
+```
+
+##### HTML Links
+
+HTML links are defined with the `<a>` tag:
+
+```
+<a href="https://www.w3schools.com">This is a link</a>
+```
+
+##### HTML Images
+
+HTML images are defined with the <img> tag.
+
+The source file (src), alternative text (alt), width, and height are provided as attributes:
+
+```
+<img src="w3schools.jpg" alt="W3Schools.com" width="104" height="142">
+```
+
+#### HTML Attributes
+
+- The **href** attribute specifies the URL of the page the link goes to.
+- The **src** attribute specifies the path to the image to be displayed
+- The `<img>` tag should also contain the **width and height** attributes, which specify the width and height of the image (in pixels).
+- The required **alt** attribute for the `<img>` tag specifies an alternate text for an image, if the image for some reason cannot be displayed. This can be due to a slow connection, or an error in the src attribute, or if the user uses a screen reader.
+- The **style** attribute is used to add styles to an element, such as color, font, size, and more.
+- You should always include the lang attribute inside the `<html>` tag, to declare the language of the Web page. This is meant to assist search engines and browsers.
+- The title attribute defines some extra information about an element.
+
+### The CSS Box Model
+
+<img src = "https://drek4537l1klr.cloudfront.net/grant2/Figures/ifcfig01.jpg"></img>
+
+- Content: text, images, etc;
+- Padding: transparent area around the content, inside of the box;
+- Border: goes around the padding and the content;
+- Margin: space between boxes;
+- Fill area: area that gets filled with background color or background image.
+
 # Links bibliography
 
 - [Var, Let, and Const – What's the Difference?](https://www.freecodecamp.org/news/var-let-and-const-whats-the-difference/)
@@ -176,4 +248,5 @@ In short, use function declarations when you want to create a function on the gl
 - [Strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode#strict_mode_overview)
 - [Parameter](https://developer.mozilla.org/en-US/docs/Glossary/Parameter#:~:text=Note%20the%20difference%20between%20parameters,values%20passed%20to%20the%20function.)
 - [When to use a function declaration vs. a function expression](https://www.freecodecamp.org/news/when-to-use-a-function-declarations-vs-a-function-expression-70f15152a0a0/)
--
+- [HTML Tutorial](https://www.w3schools.com/html/default.asp)
+- [CSS Tutorial](https://www.w3schools.com/css/default.asp)
