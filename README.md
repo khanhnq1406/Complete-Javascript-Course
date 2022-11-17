@@ -5,9 +5,44 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
 
 ## Table of contents
 
-- [JavaScript Fundamentals – Part 1](#javascript-fundamentals-–-part-1)
-- [JavaScript Fundamentals – Part 2](#javascript-fundamentals-–-part-2)
-- [Developer Skill & Editor Setup](#developer-skills--editor-setup)
+- [![My Skills](https://skills.thijs.gg) The Complete JavaScript Course 2022: From Zero to Expert!](#-the-complete-javascript-course-2022-from-zero-to-expert)
+  - [Table of contents](#table-of-contents)
+  - [JavaScript Fundamentals – Part 1](#javascript-fundamentals--part-1)
+    - [Var, Let, and Const](#var-let-and-const)
+      - [**Var**](#var)
+      - [**Let**](#let)
+      - [**Const**](#const)
+    - [Basic operators](#basic-operators)
+      - [**Arithmetic Operators**](#arithmetic-operators)
+      - [**Assignment Operators**](#assignment-operators)
+  - [**Comparison Operators**](#comparison-operators)
+    - [**Logical Operators**](#logical-operators)
+    - [**Type Operators**](#type-operators)
+    - [**Bitwise Operators**](#bitwise-operators)
+    - [Truthy and Falsy Values](#truthy-and-falsy-values)
+    - [Equality Operators: == vs. ===](#equality-operators--vs-)
+  - [JavaScript Fundamentals – Part 2](#javascript-fundamentals--part-2)
+    - [Strict mode](#strict-mode)
+    - [Arguments vs Parameters](#arguments-vs-parameters)
+    - [Function Declarations vs. Expressions](#function-declarations-vs-expressions)
+      - [The first difference: a name](#the-first-difference-a-name)
+      - [Hoisting](#hoisting)
+      - [Summary](#summary)
+  - [Developer Skills & Editor Setup](#developer-skills--editor-setup)
+    - [Some extensions in VSCode](#some-extensions-in-vscode)
+    - [Learning How to Code](#learning-how-to-code)
+    - [4 steps to solve any problem](#4-steps-to-solve-any-problem)
+  - [HTML & CSS](#html--css)
+    - [HTML](#html)
+      - [Element](#element)
+      - [HTML tag](#html-tag)
+        - [HTML Headings](#html-headings)
+        - [HTML Paragraphs](#html-paragraphs)
+        - [HTML Links](#html-links)
+        - [HTML Images](#html-images)
+      - [HTML Attributes](#html-attributes)
+    - [The CSS Box Model](#the-css-box-model)
+- [Links bibliography](#links-bibliography)
 
 ## JavaScript Fundamentals – Part 1
 
@@ -241,6 +276,44 @@ The source file (src), alternative text (alt), width, and height are provided as
 - Margin: space between boxes;
 - Fill area: area that gets filled with background color or background image.
 
+## DOM and Evens Fundamentals
+
+### The HTML DOM (Document Object Model)
+
+The Document Object Model (DOM) is **a cross-platform and language-independent interface** that treats an XML or HTML document as a tree structure wherein each node is an object representing a part of the document. The DOM represents a document with a logical tree. Each branch of the tree ends in a node, and each node contains objects. DOM methods allow programmatic access to the tree; **with them one can change the structure, style or content of a document**. Nodes can have event handlers attached to them. Once an event is triggered, the event handlers get executed.
+
+When a web page is loaded, the browser creates a Document Object Model of the page.
+
+The HTML DOM model is constructed as a tree of Objects:
+
+<image src="https://www.w3schools.com/js/pic_htmltree.gif"/>
+
+<image src="00-Utils/images/Dom.png">
+
+### Selecting and Manipulating Elements
+
+- Set text content:
+
+`document.querySelector('.className').textContent = 'text';`
+
+- Get value of input field:
+
+`document.querySelector('.className').value;`
+
+### Handling Click Events
+
+```
+document.querySelector('.className').addEventListener('click', function () {
+  ...
+})
+```
+
+### Manipulating CSS Styles
+
+```
+document.querySelector('body').style.backgroundColor = '#hexColor';
+```
+
 # Links bibliography
 
 - [Var, Let, and Const – What's the Difference?](https://www.freecodecamp.org/news/var-let-and-const-whats-the-difference/)
@@ -250,3 +323,5 @@ The source file (src), alternative text (alt), width, and height are provided as
 - [When to use a function declaration vs. a function expression](https://www.freecodecamp.org/news/when-to-use-a-function-declarations-vs-a-function-expression-70f15152a0a0/)
 - [HTML Tutorial](https://www.w3schools.com/html/default.asp)
 - [CSS Tutorial](https://www.w3schools.com/css/default.asp)
+- [The HTML DOM (Document Object Model)](https://www.w3schools.com/js/js_htmldom.asp)
+- [Introduction to the DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction)
