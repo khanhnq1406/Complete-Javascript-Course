@@ -5,7 +5,7 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
 
 ## Table of contents
 
-- [![My Skills](https://skills.thijs.gg) The Complete JavaScript Course 2022: From Zero to Expert!](#-the-complete-javascript-course-2022-from-zero-to-expert)
+- [ The Complete JavaScript Course 2022: From Zero to Expert!](#-the-complete-javascript-course-2022-from-zero-to-expert)
   - [Table of contents](#table-of-contents)
   - [JavaScript Fundamentals – Part 1](#javascript-fundamentals--part-1)
     - [Var, Let, and Const](#var-let-and-const)
@@ -16,9 +16,9 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
       - [**Arithmetic Operators**](#arithmetic-operators)
       - [**Assignment Operators**](#assignment-operators)
   - [**Comparison Operators**](#comparison-operators)
-    - [**Logical Operators**](#logical-operators)
-    - [**Type Operators**](#type-operators)
-    - [**Bitwise Operators**](#bitwise-operators)
+      - [**Logical Operators**](#logical-operators)
+      - [**Type Operators**](#type-operators)
+      - [**Bitwise Operators**](#bitwise-operators)
     - [Truthy and Falsy Values](#truthy-and-falsy-values)
     - [Equality Operators: == vs. ===](#equality-operators--vs-)
   - [JavaScript Fundamentals – Part 2](#javascript-fundamentals--part-2)
@@ -28,11 +28,11 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
       - [The first difference: a name](#the-first-difference-a-name)
       - [Hoisting](#hoisting)
       - [Summary](#summary)
-  - [Developer Skills & Editor Setup](#developer-skills--editor-setup)
+  - [Developer Skills \& Editor Setup](#developer-skills--editor-setup)
     - [Some extensions in VSCode](#some-extensions-in-vscode)
     - [Learning How to Code](#learning-how-to-code)
     - [4 steps to solve any problem](#4-steps-to-solve-any-problem)
-  - [HTML & CSS](#html--css)
+  - [HTML \& CSS](#html--css)
     - [HTML](#html)
       - [Element](#element)
       - [HTML tag](#html-tag)
@@ -42,6 +42,16 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
         - [HTML Images](#html-images)
       - [HTML Attributes](#html-attributes)
     - [The CSS Box Model](#the-css-box-model)
+  - [DOM and Event Fundamentals](#dom-and-event-fundamentals)
+    - [The HTML DOM (Document Object Model)](#the-html-dom-document-object-model)
+    - [Selecting and Manipulating Elements](#selecting-and-manipulating-elements)
+    - [Handling Click Events](#handling-click-events)
+    - [Manipulating CSS Styles](#manipulating-css-styles)
+    - [Working with Classes](#working-with-classes)
+      - [Remove](#remove)
+      - [Add](#add)
+      - [Contains](#contains)
+    - [Handling a keypress event](#handling-a-keypress-event)
 - [Links bibliography](#links-bibliography)
 
 ## JavaScript Fundamentals – Part 1
@@ -276,7 +286,7 @@ The source file (src), alternative text (alt), width, and height are provided as
 - Margin: space between boxes;
 - Fill area: area that gets filled with background color or background image.
 
-## DOM and Evens Fundamentals
+## DOM and Event Fundamentals
 
 ### The HTML DOM (Document Object Model)
 
@@ -312,6 +322,34 @@ document.querySelector('.className').addEventListener('click', function () {
 
 ```
 document.querySelector('body').style.backgroundColor = '#hexColor';
+```
+
+### Working with Classes
+
+#### Remove
+
+```
+document.querySelector('.className').classList.remove('hidden');
+```
+
+#### Add
+
+```
+document.querySelector('.className').classList.add('hidden');
+```
+
+#### Contains
+
+```
+document.querySelector('.className').classList.contains('hidden');
+```
+
+### Handling a keypress event
+
+```
+document.addEventListener('keydown', function(e) {
+  console.log(e.key);
+})
 ```
 
 # Links bibliography
