@@ -52,6 +52,7 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
       - [Add](#add)
       - [Contains](#contains)
     - [Handling a keypress event](#handling-a-keypress-event)
+    - [Change src attribute](#change-src-attribute)
 - [Links bibliography](#links-bibliography)
 
 ## JavaScript Fundamentals – Part 1
@@ -350,6 +351,12 @@ document.querySelector('.className').classList.contains('hidden');
 document.addEventListener('keydown', function(e) {
   console.log(e.key);
 })
+```
+
+### Change src attribute
+
+```
+dice.src = `dice-${rollNumber}.png`;
 ```
 
 # Links bibliography
