@@ -53,7 +53,25 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
       - [Contains](#contains)
     - [Handling a keypress event](#handling-a-keypress-event)
     - [Change src attribute](#change-src-attribute)
-- [Links bibliography](#links-bibliography)
+  - [How Javascript Works Behind the Scenes](#how-javascript-works-behind-the-scenes)
+    - [The Javascript Engine and Runtime](#the-javascript-engine-and-runtime)
+      - [Javascript Engine](#javascript-engine)
+      - [Compilation vs. Interpretation vs. Just-in-time (JIT) compilation](#compilation-vs-interpretation-vs-just-in-time-jit-compilation)
+      - [Modern Just-in-time compilation of javascript](#modern-just-in-time-compilation-of-javascript)
+      - [Javascript runtime](#javascript-runtime)
+    - [Execution Contexts and The Call Stack](#execution-contexts-and-the-call-stack)
+      - [Execution Context](#execution-context)
+      - [Call Stack](#call-stack)
+    - [Scope and The Scope Chain](#scope-and-the-scope-chain)
+      - [Scope](#scope)
+    - [The this Keyword](#the-this-keyword)
+      - [How to create a function in object](#how-to-create-a-function-in-object)
+      - [this Keyword](#this-keyword)
+      - [Arrow and Regular Functions](#arrow-and-regular-functions)
+    - [Primitive Types and Reference Types](#primitive-types-and-reference-types)
+      - [Primitive Types](#primitive-types)
+      - [Reference Types](#reference-types)
+  - [Links bibliography](#links-bibliography)
 
 ## JavaScript Fundamentals – Part 1
 
@@ -359,7 +377,138 @@ document.addEventListener('keydown', function(e) {
 dice.src = `dice-${rollNumber}.png`;
 ```
 
-# Links bibliography
+## How Javascript Works Behind the Scenes
+
+### The Javascript Engine and Runtime
+
+#### Javascript Engine
+
+A JavaScript engine is a software component that executes JavaScript code.
+
+Some engines are used by browser:
+|          Browser         | Name of Javascript Engine |
+|:------------------------:|:-------------------------:|
+|       Google Chrome      |             V8            |
+| Edge (Internet Explorer) |           Chakra          |
+|      Mozilla Firefox     |       Spider Monkey       |
+|          Safari          |   Javascript Core Webkit  |
+
+<img src="https://rgbk21.github.io/Code/JavaScript/imgs/UdemyCourse/Module8/Image2.png"/>
+
+#### Compilation vs. Interpretation vs. Just-in-time (JIT) compilation
+**Compilation**: Entire code is converted into machine code at once, and writen to a binary file that can be executed by a computer
+
+**Interpretation**: interpreter runs through the source code and executes it line by line
+
+<img src="https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2020/12/31171441/Screenshot-855-1024x648.png" />
+
+**Just-in-time (JIT) compilation**: Entire code is converted into machine code at once, then executed immediately
+
+<img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20220802233813/Java-Compiler.png"/>
+
+#### Modern Just-in-time compilation of javascript
+
+<img src="https://www.freecodecamp.org/news/content/images/2023/05/FA4EDBD9-0348-4445-B795-8D1FEF904CBE.jpeg"/>
+
+#### Javascript runtime
+
+<img src="https://www.epineda.net/content/images/2022/01/CH02_F06_pineda.png"/>
+
+### Execution Contexts and The Call Stack
+
+#### Execution Context
+
+An execution context is a conceptual environment in which JavaScript code is executed. It consists of three main components:
+
+- The Variable Environment: It contains variables, function declarations, and function arguments.
+- The Lexical Environment: It holds variables and function declarations, similar to the Variable Environment. However, it also maintains a reference to the outer environment, enabling access to variables from outer scopes.
+- The This Value: It references the current object or context on which a function is invoked.
+
+Every time a function is called, a new execution context is created, forming a stack of execution contexts known as the call stack.
+
+#### Call Stack
+
+The call stack is a data structure used by JavaScript to manage the execution of functions. It keeps track of the execution context of function calls. When a function is called, its execution context is pushed onto the call stack, and when the function completes, its execution context is popped from the stack.
+
+The call stack follows the Last-In-First-Out (LIFO) principle, meaning the last function that gets pushed onto the stack is the first one to be executed and removed.
+
+The call stack ensures that function calls are processed in the expected order, and it helps manage the flow of execution in JavaScript.
+
+<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--Li3qnzE5--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ibhnjcpmp3nal6g6gsnd.png"/>
+
+### Scope and The Scope Chain
+
+#### Scope
+
+In JavaScript, scope refers to the visibility and accessibility of variables, objects, and functions within a particular section of code during runtime.
+
+1. **Global Scope:** Variables declared outside of any function have global scope. They are accessible from anywhere in the code, including other functions or blocks.
+2. **Function Scope:** Variables declared within a function have function scope. They are accessible only within the function itself and not outside of it.
+3. **Block Scope with let and const (ES6):** In addition to function scope, ES6 introduced block scope using the let and const keywords. Variables declared with let and const have block scope, meaning they are limited to the block in which they are defined (e.g., within curly braces {}).
+
+<img src="https://media.licdn.com/dms/image/C5112AQEfPB6C3QpPIw/article-cover_image-shrink_600_2000/0/1580805029880?e=2147483647&v=beta&t=xf2S2sHiIOwIWN6F0cn5hTTVy1DwfzSTO7y2DxcjEnY"/>
+
+### The this Keyword
+
+#### How to create a function in object
+
+```
+const person = {
+  firstName: "abc",
+  lastName : "xyz",
+  fullName : function() {
+    return this.firstName + " " + this.lastName;
+  }
+};
+```
+
+#### this Keyword
+
+The `this` keyword refers to an object. Which object depends on how `this` is being invoked (used or called).
+
+The `this` keyword refers to different objects depending on how it is used:
+
+- In an object method, `this` refers to the object
+- Alone, `this` refers to the global object
+- In a function, `this` refers to the global object
+- In a function, in strict mode, `this` is `undefined`
+- In an event, `this` refers to the element that received the event
+- Methods like call(), apply(), and bind() can refer `this` to any object.
+
+#### Arrow and Regular Functions
+
+Arrow function
+```
+const increment = (num) => num + 1;
+increment(41); // => 42
+```
+Regular Functions
+```
+function increment(num) {
+	return num+1
+}
+increment(41); // => 42
+```
+
+```
+const increment = function(num) {
+	return num+1
+}
+increment(41); // => 42
+```
+
+### Primitive Types and Reference Types
+
+#### Primitive Types
+These data types are pretty simple, and are sometimes treated as the lowest level of implementation of a programming language. They are not objects, and do not have methods. Examples of such data types are numbers, strings, booleans, null, and undefined.
+
+When you declare a primitive data type in JavaScript, it is stored on a stack.
+
+#### Reference Types
+
+Reference data types are dynamic in nature. They do not have a fixed size. Examples of such data types include arrays, functions, collections, and all other types of objects.
+
+## Links bibliography
 
 - [Var, Let, and Const – What's the Difference?](https://www.freecodecamp.org/news/var-let-and-const-whats-the-difference/)
 - [JavaScript Operators](https://www.w3schools.com/js/js_operators.asp)
@@ -370,3 +519,4 @@ dice.src = `dice-${rollNumber}.png`;
 - [CSS Tutorial](https://www.w3schools.com/css/default.asp)
 - [The HTML DOM (Document Object Model)](https://www.w3schools.com/js/js_htmldom.asp)
 - [Introduction to the DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction)
+- [The JavaScript this Keyword](https://www.w3schools.com/js/js_this.asp)
