@@ -53,6 +53,12 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
       - [Contains](#contains)
     - [Handling a keypress event](#handling-a-keypress-event)
     - [Change src attribute](#change-src-attribute)
+  - [Data Structures, Modern Operators and Strings](#data-structures-modern-operators-and-strings)
+    - [Destructuring](#destructuring)
+    - [Spread](#spread)
+    - [Rest Parameters](#rest-parameters)
+    - [Conclusion](#conclusion)
+    - [Reference](#reference)
   - [How Javascript Works Behind the Scenes](#how-javascript-works-behind-the-scenes)
     - [The Javascript Engine and Runtime](#the-javascript-engine-and-runtime)
       - [Javascript Engine](#javascript-engine)
@@ -71,6 +77,9 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
     - [Primitive Types and Reference Types](#primitive-types-and-reference-types)
       - [Primitive Types](#primitive-types)
       - [Reference Types](#reference-types)
+  - [A closer look at functions](#a-closer-look-at-functions)
+    - [How Passing Arguments Works: Value vs. Reference](#how-passing-arguments-works-value-vs-reference)
+    - [Callback functions](#callback-functions)
   - [Links bibliography](#links-bibliography)
 
 ## JavaScript Fundamentals – Part 1
@@ -377,6 +386,121 @@ document.addEventListener('keydown', function(e) {
 dice.src = `dice-${rollNumber}.png`;
 ```
 
+## Data Structures, Modern Operators and Strings
+
+### Destructuring
+
+Destructuring assignment is a syntax that allows you to assign object properties or array items as variables.
+
+```javascript
+const note = {
+  id: 1,
+  title: 'My first note',
+  date: '01/01/1970',
+}
+// Destructure properties into variables
+const { id, title, date } = note
+// Assign a custom name to a destructured value
+const { id: noteId, title, date } = note
+```
+You can also destructure nested object values. For example, update the note object to have a nested author object:
+
+```javascript
+const note = {
+  id: 1,
+  title: 'My first note',
+  date: '01/01/1970',
+  author: {
+    firstName: 'Sherlock',
+    lastName: 'Holmes',
+  },
+}
+const {
+  id,
+  title,
+  date,
+  author: { firstName, lastName },
+} = note
+```
+
+Array destructuring allows you to create new variables using an array item as a value. Consider this example, an array with the various parts of a date:
+
+```javascript
+const date = ['1970', '12', '01']
+// Create variables from the Array items
+const year = date[0]
+const month = date[1]
+const day = date[2]
+// Destructure Array values into variables
+const [year, month, day] = date
+```
+
+### Spread
+
+Spread syntax (...) is another helpful addition to JavaScript for working with arrays, objects, and function calls. Spread allows objects and iterables (such as arrays) to be unpacked, or expanded, which can be used to make shallow copies of data structures to increase the ease of data manipulation.
+
+```javascript
+// Create an Array
+const tools = ['hammer', 'screwdriver']
+const otherTools = ['wrench', 'saw']
+// Unpack the tools Array into the allTools Array
+const allTools = [...tools, ...otherTools]
+console.log(allTools)
+// ["hammer", "screwdriver", "wrench", "saw"]
+```
+
+```javascript
+// Array of users
+const users = [
+  { id: 1, name: 'Ben' },
+  { id: 2, name: 'Leslie' },
+]
+// Add new user
+const updatedUsers = [...users, newUser]
+```
+
+Adding or modifying properties on an existing object in an immutable fashion is simplified with spread. In this example, the isLoggedIn property is added to the user object:
+
+```javascript
+const user = {
+  id: 3,
+  name: 'Ron',
+}
+const updatedUser = { ...user, isLoggedIn: true }
+console.log(updatedUser)
+// {id: 3, name: "Ron", isLoggedIn: true}
+```
+
+### Rest Parameters
+
+The last feature you will learn in this article is the rest parameter syntax. The syntax appears the same as spread `(...)` but has the opposite effect. Instead of unpacking an array or object into individual values, the rest syntax will create an array of an indefinite number of arguments.
+
+```javascript
+function restTest(one, two, ...args) {
+  console.log(one, two, args)
+}
+restTest(1, 2, 3, 4, 5, 6)
+// 1 2 [3, 4, 5, 6]
+```
+
+```javascript
+const [firstTool, ...rest] = ['hammer', 'screwdriver', 'wrench']
+console.log(firstTool, rest)
+// hammer ["screwdriver", "wrench"]
+```
+
+### Conclusion
+
+In this article, you learned about destructuring, spread syntax, and rest parameters. In summary:
+
+- Destructuring is used to create varibles from array items or object properties.
+- Spread syntax is used to unpack iterables such as arrays, objects, and function calls.
+- Rest parameter syntax will create an array from an indefinite number of values.
+
+### Reference
+
+https://www.digitalocean.com/community/tutorials/understanding-destructuring-rest-parameters-and-spread-syntax-in-javascript#spread
+
 ## How Javascript Works Behind the Scenes
 
 ### The Javascript Engine and Runtime
@@ -500,13 +624,56 @@ increment(41); // => 42
 ### Primitive Types and Reference Types
 
 #### Primitive Types
-These data types are pretty simple, and are sometimes treated as the lowest level of implementation of a programming language. They are not objects, and do not have methods. Examples of such data types are numbers, strings, booleans, null, and undefined.
+These data types are pretty simple, and are sometimes treated as the lowest level of implementation of a programming language. They are not objects, and do not have methods. Examples of such data types are **numbers, strings, booleans, null, and undefined**.
 
-When you declare a primitive data type in JavaScript, it is stored on a stack.
+When you declare a primitive data type in JavaScript, **it is stored on a stack**.
 
 #### Reference Types
 
-Reference data types are dynamic in nature. They do not have a fixed size. Examples of such data types include arrays, functions, collections, and all other types of objects.
+Reference data types are dynamic in nature. They do not have a fixed size. Examples of such data types include **arrays, functions, collections, and all other types of objects**.
+
+When you declare a reference data type in JavaScript, **it is stored on heap**.
+
+<img src="https://rgbk21.github.io/Code/JavaScript/imgs/UdemyCourse/Module8/PrimitivesTypes_vs_ReferenceTypes.png"/>
+
+## A closer look at functions
+
+### How Passing Arguments Works: Value vs. Reference
+
+The main difference between value and reference is that passing by value happens when assigning primitives while passing by reference when assigning objects.
+
+```
+const val = "default";
+const arr = [1];
+const obj = {objValue:1}
+const change = function(paramVal, paramArr, paramObj) {
+  paramVal = "changed";
+  paramArr.push(2);
+  paramObj.objValue = 2;
+}
+change(val, arr, obj)
+console.log(val, arr, obj)
+// default [ 1, 2 ] { objValue: 2 }
+```
+
+### Callback functions
+
+A **callback function** is a function that is passed as an argument to another function, to be “called back” at a later time. A function that accepts other functions as arguments is called a **higher-order function**, which contains the logic for when the callback function gets executed. It’s the combination of these two that allow us to extend our functionality.
+
+```javascript
+function createQuote(quote, callback){ 
+  var myQuote = "Like I always say, " + quote;
+  callback(myQuote); // 2
+}
+function logQuote(quote){
+  console.log(quote);
+}
+createQuote("eat your vegetables!", logQuote); // 1
+// Result in console: 
+// Like I always say, eat your vegetables!
+```
+
+In the above example, `createQuote` is the higher-order function, which accepts two arguments, the second one being the callback. The `logQuote` function is being used to pass in as our callback function.
 
 ## Links bibliography
 
@@ -520,3 +687,5 @@ Reference data types are dynamic in nature. They do not have a fixed size. Examp
 - [The HTML DOM (Document Object Model)](https://www.w3schools.com/js/js_htmldom.asp)
 - [Introduction to the DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction)
 - [The JavaScript this Keyword](https://www.w3schools.com/js/js_this.asp)
+- [Understanding Destructuring, Rest Parameters, and Spread Syntax in JavaScript](https://www.digitalocean.com/community/tutorials/understanding-destructuring-rest-parameters-and-spread-syntax-in-javascript#destructuring)
+- [What is a Callback Function in JavaScript?](https://www.freecodecamp.org/news/what-is-a-callback-function-in-javascript/)
