@@ -80,6 +80,8 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
   - [A closer look at functions](#a-closer-look-at-functions)
     - [How Passing Arguments Works: Value vs. Reference](#how-passing-arguments-works-value-vs-reference)
     - [Callback functions](#callback-functions)
+    - [The call and apply Methods](#the-call-and-apply-methods)
+    - [The bind Method](#the-bind-method)
   - [Links bibliography](#links-bibliography)
 
 ## JavaScript Fundamentals – Part 1
@@ -675,6 +677,161 @@ createQuote("eat your vegetables!", logQuote); // 1
 
 In the above example, `createQuote` is the higher-order function, which accepts two arguments, the second one being the callback. The `logQuote` function is being used to pass in as our callback function.
 
+### The call and apply Methods
+
+**Call method**
+
+The call method is basically used to invoke the function with different this object. In JavaScript, this refers to an object. It depends on how we are calling a particular function. In the global scope, this refers to the global object window. Inside function also this refers to the global object window.
+
+In strict mode, when we use any function then this refers to undefined. In functions like call, this could refer to a different object. With the help of the call method, we can invoke a particular function with different objects.
+
+**Syntax:** `object.objectMethod.call( objectInstance, arguments )`
+
+```javascript
+const obj1 = { 
+    firstName: "First_name", 
+    lastName: "Last_name"
+}; 
+const obj2 = { 
+    firstName: "Kane", 
+    lastName: "Nguyen"
+}; 
+function printName(profession, country) { 
+    console.log(this.firstName + " " 
+        + this.lastName + " " + 
+        profession + " " + country); 
+} 
+printName.call(obj2, "Developer", "Vietnam"); 
+// Kane Nguyen Developer Vietnam
+```
+
+**Apply method**
+
+Just like the call method we can also bind the function to any object. Using apply( ) method also we can invoke a given function with different objects.
+
+**Syntax:** `object.objectMethod.apply(objectInstance, arrayOfArguments)`
+
+```javascript
+const obj1 = { 
+    firstName: "First_name", 
+    lastName: "Last_name"
+}; 
+const obj2 = { 
+    firstName: "Kane", 
+    lastName: "Nguyen"
+}; 
+function printName(profession, country) { 
+    console.log(this.firstName + " "
+        + this.lastName + " " + 
+        profession + " " + country); 
+} 
+printName.apply(obj2, ["Developer", "Vietnam"]); 
+// Kane Nguyen Developer Vietnam
+```
+
+**Reference:** https://www.geeksforgeeks.org/explain-call-and-apply-methods-in-javascript/
+
+### The bind Method
+
+In JavaScript function binding happens using Bind() method. With this method, we can bind an object to a common function, so that the function gives different results when needed. otherwise, it gives the same result or gives an error while the code is executing. We use the Bind() method to call a function with this value, this keyword refers to the same object which is currently selected.
+
+For this example, we made a new variable function printFunc2 which refers to the function printFunc() of object geeks. Here the binding of this is lost, so no output is produced. To make sure that any binding of this is not to be lost, we are using Bind() method.
+
+```javascript
+let geeks = { 
+    name: "ABC", 
+    printFunc: function () { 
+        console.log(this.name); 
+    } 
+}   
+let printFunc2 = geeks.printFunc; 
+printFunc2();
+//no output is produced by this code//
+```
+
+ By using the bind() method we can set the context of this to a particular object. So we can use other variables also to call the bound function. Use the bind() method in the previous example: 
+
+```javascript
+let geeks = { 
+    name: "ABC", 
+    printFunc: function () { 
+        console.log(this.name); 
+    } 
+} 
+let printFunc2 = geeks.printFunc.bind(geeks); 
+//using bind() 
+// bind() takes the object "geeks" as parameter// 
+printFunc2();
+/// Output: ABC
+```
+
+**Function Borrowing**
+
+With the bind() method, an object can borrow a method from another object.
+The example below creates 2 objects (person and member).
+
+The member object borrows the fullname method from the person object:
+
+```javascript
+const person = {
+  firstName:"John",
+  lastName: "Doe",
+  fullName: function () {
+    return this.firstName + " " + this.lastName;
+  }
+}
+
+const member = {
+  firstName:"Hege",
+  lastName: "Nilsen",
+}
+
+let fullName = person.fullName.bind(member);
+// Hege Nilsen
+```
+
+**With callback**
+
+When a function is used as a callback, this is lost.
+
+This example will try to display the person name after 3 seconds, but it will display undefined instead:
+
+```javascript
+const person = {
+  firstName:"John",
+  lastName: "Doe",
+  display: function () {
+    let x = document.getElementById("demo");
+    x.innerHTML = this.firstName + " " + this.lastName;
+  }
+}
+
+setTimeout(person.display, 3000);
+```
+
+The bind() method solves this problem.
+
+In the following example, the bind() method is used to bind person.display to person.
+
+This example will display the person name after 3 seconds:
+
+```javascript
+const person = {
+  firstName:"John",
+  lastName: "Doe",
+  display: function () {
+    let x = document.getElementById("demo");
+    x.innerHTML = this.firstName + " " + this.lastName;
+  }
+}
+let display = person.display.bind(person);
+setTimeout(display, 3000);
+```
+
+**Reference:** 
+- https://www.geeksforgeeks.org/javascript-function-binding/
+- https://www.w3schools.com/js/js_function_bind.asp
+
 ## Links bibliography
 
 - [Var, Let, and Const – What's the Difference?](https://www.freecodecamp.org/news/var-let-and-const-whats-the-difference/)
@@ -689,3 +846,6 @@ In the above example, `createQuote` is the higher-order function, which accepts 
 - [The JavaScript this Keyword](https://www.w3schools.com/js/js_this.asp)
 - [Understanding Destructuring, Rest Parameters, and Spread Syntax in JavaScript](https://www.digitalocean.com/community/tutorials/understanding-destructuring-rest-parameters-and-spread-syntax-in-javascript#destructuring)
 - [What is a Callback Function in JavaScript?](https://www.freecodecamp.org/news/what-is-a-callback-function-in-javascript/)
+- [Explain call() and apply() methods in JavaScript](https://www.geeksforgeeks.org/explain-call-and-apply-methods-in-javascript/)
+- [JavaScript Function bind()](https://www.w3schools.com/js/js_function_bind.asp)
+- [JavaScript Function binding](https://www.geeksforgeeks.org/javascript-function-binding/)
