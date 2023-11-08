@@ -70,18 +70,14 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
       - [Call Stack](#call-stack)
     - [Scope and The Scope Chain](#scope-and-the-scope-chain)
       - [Scope](#scope)
-    - [The this Keyword](#the-this-keyword)
-      - [How to create a function in object](#how-to-create-a-function-in-object)
-      - [this Keyword](#this-keyword)
-      - [Arrow and Regular Functions](#arrow-and-regular-functions)
-    - [Primitive Types and Reference Types](#primitive-types-and-reference-types)
-      - [Primitive Types](#primitive-types)
-      - [Reference Types](#reference-types)
-  - [A closer look at functions](#a-closer-look-at-functions)
-    - [How Passing Arguments Works: Value vs. Reference](#how-passing-arguments-works-value-vs-reference)
-    - [Callback functions](#callback-functions)
+      - [Global scope](#global-scope)
+      - [Local scope](#local-scope)
+      - [Function Scope](#function-scope)
+      - [Lexical Scope](#lexical-scope)
+      - [Closures](#closures)
     - [The call and apply Methods](#the-call-and-apply-methods)
     - [The bind Method](#the-bind-method)
+    - [Immediately invoked function expression](#immediately-invoked-function-expression)
   - [Links bibliography](#links-bibliography)
 
 ## JavaScript Fundamentals – Part 1
@@ -574,6 +570,75 @@ In JavaScript, scope refers to the visibility and accessibility of variables, ob
 
 <img src="https://media.licdn.com/dms/image/C5112AQEfPB6C3QpPIw/article-cover_image-shrink_600_2000/0/1580805029880?e=2147483647&v=beta&t=xf2S2sHiIOwIWN6F0cn5hTTVy1DwfzSTO7y2DxcjEnY"/>
 
+#### Global scope
+
+Before you write a line of JavaScript, you’re in what we call the Global Scope. If we declare a variable, it’s defined globally:
+
+```javascript
+// global scope
+var name = 'Todd';
+```
+
+#### Local scope
+
+A local scope refers to any scope defined past the global scope. There is typically one global scope, and each function defined has its own (nested) local scope.
+
+```javascript
+// Scope A: Global scope out here
+var myFunction = function () {
+  // Scope B: Local scope in here
+};
+```
+
+#### Function Scope
+
+All scopes in JavaScript are created with Function Scope only, they aren’t created by for or while loops or expression statements like if or switch. New functions = new scope - that’s the rule. A simple example to demonstrate this scope creation:
+
+```javascript
+// Scope A
+var myFunction = function () {
+  // Scope B
+  var myOtherFunction = function () {
+    // Scope C
+  };
+};
+```
+
+#### Lexical Scope
+
+Whenever you see a function within another function, the inner function has access to the scope in the outer function, this is called Lexical Scope or Closure - also referred to as Static Scope. The easiest way to demonstrate that again:
+
+```javascript
+// Scope A
+var myFunction = function () {
+  // Scope B
+  var name = 'Todd'; // defined in Scope B
+  var myOtherFunction = function () {
+    // Scope C: `name` is accessible here!
+  };
+};
+```
+
+#### Closures
+
+Closures ties in very closely with Lexical Scope. A better example of how the closure side of things works, can be seen when returning a function reference - a more practical usage. Inside our scope, we can return things so that they’re available in the parent scope:
+
+```javascript
+var sayHello = function (name) {
+  var text = 'Hello, ' + name;
+  return function () {
+    console.log(text);
+  };
+};
+sayHello('Todd'); // nothing happens, no errors, just silence...
+
+var helloTodd = sayHello('Todd');
+helloTodd(); // will call the closure and log 'Hello, Todd'
+```
+
+**Reference:** https://ultimatecourses.com/blog/everything-you-wanted-to-know-about-javascript-scope
+
+```
 ### The this Keyword
 
 #### How to create a function in object
@@ -681,7 +746,7 @@ In the above example, `createQuote` is the higher-order function, which accepts 
 
 **Call method**
 
-The call method is basically used to invoke the function with different this object. In JavaScript, this refers to an object. It depends on how we are calling a particular function. In the global scope, this refers to the global object window. Inside function also this refers to the global object window.
+The call method is basically used to **invoke the function with different this object.** In JavaScript, this refers to an object. It depends on how we are calling a particular function. In the global scope, this refers to the global object window. Inside function also this refers to the global object window.
 
 In strict mode, when we use any function then this refers to undefined. In functions like call, this could refer to a different object. With the help of the call method, we can invoke a particular function with different objects.
 
@@ -707,7 +772,7 @@ printName.call(obj2, "Developer", "Vietnam");
 
 **Apply method**
 
-Just like the call method we can also bind the function to any object. Using apply( ) method also we can invoke a given function with different objects.
+Just like the call method we can also **bind the function to any object**. Using apply( ) method also we can invoke a given function with different objects.
 
 **Syntax:** `object.objectMethod.apply(objectInstance, arrayOfArguments)`
 
@@ -733,7 +798,7 @@ printName.apply(obj2, ["Developer", "Vietnam"]);
 
 ### The bind Method
 
-In JavaScript function binding happens using Bind() method. With this method, we can bind an object to a common function, so that the function gives different results when needed. otherwise, it gives the same result or gives an error while the code is executing. We use the Bind() method to call a function with this value, this keyword refers to the same object which is currently selected.
+In JavaScript function binding happens using Bind() method. With this method, we can **bind an object to a common function**, so that the function gives different results when needed. otherwise, it gives the same result or gives an error while the code is executing. We use the Bind() method to call a function with this value, this keyword refers to the same object which is currently selected.
 
 For this example, we made a new variable function printFunc2 which refers to the function printFunc() of object geeks. Here the binding of this is lost, so no output is produced. To make sure that any binding of this is not to be lost, we are using Bind() method.
 
@@ -749,7 +814,7 @@ printFunc2();
 //no output is produced by this code//
 ```
 
- By using the bind() method we can set the context of this to a particular object. So we can use other variables also to call the bound function. Use the bind() method in the previous example: 
+ By using the bind() method we can set the context of this to a particular object. So we can use other variables also to call the bound function. Use the bind() method in the previous example:
 
 ```javascript
 let geeks = { 
@@ -828,9 +893,35 @@ let display = person.display.bind(person);
 setTimeout(display, 3000);
 ```
 
-**Reference:** 
+**Reference:**
 - https://www.geeksforgeeks.org/javascript-function-binding/
 - https://www.w3schools.com/js/js_function_bind.asp
+
+### Immediately invoked function expression
+
+An immediately invoked function expression, or IIFE (pronounced iffy), is a function that is called immediately after it is defined.
+
+**Syntax**
+
+```javascript
+(function functionName(args) {
+ // function logic
+})(args);
+```
+
+```javascript
+(function functionName(args) {
+ // function logic
+}(args));
+```
+
+**Example:**
+
+```javascript
+(function sum(a, b) {
+  return a + b;
+}(2,3))
+```
 
 ## Links bibliography
 
@@ -849,3 +940,5 @@ setTimeout(display, 3000);
 - [Explain call() and apply() methods in JavaScript](https://www.geeksforgeeks.org/explain-call-and-apply-methods-in-javascript/)
 - [JavaScript Function bind()](https://www.w3schools.com/js/js_function_bind.asp)
 - [JavaScript Function binding](https://www.geeksforgeeks.org/javascript-function-binding/)
+- [Tìm hiểu sâu hơn về scope Javascript](https://viblo.asia/p/tim-hieu-sau-hon-ve-scope-javascript-Qbq5QrRwKD8)
+- [Everything you wanted to know about JavaScript scope](https://ultimatecourses.com/blog/everything-you-wanted-to-know-about-javascript-scope)
