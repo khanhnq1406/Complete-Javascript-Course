@@ -53,6 +53,7 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
       - [Contains](#contains)
     - [Handling a keypress event](#handling-a-keypress-event)
     - [Change src attribute](#change-src-attribute)
+    - [Container add html from javascript](#container-add-html-from-javascript)
   - [Data Structures, Modern Operators and Strings](#data-structures-modern-operators-and-strings)
     - [Destructuring](#destructuring)
     - [Spread](#spread)
@@ -78,6 +79,18 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
     - [The call and apply Methods](#the-call-and-apply-methods)
     - [The bind Method](#the-bind-method)
     - [Immediately invoked function expression](#immediately-invoked-function-expression)
+  - [Asynchronous Javascript: Promises, Async/Await, and AJAX](#asynchronous-javascript-promises-asyncawait-and-ajax)
+    - [Asynchronous Javascript, AJAX and APIs](#asynchronous-javascript-ajax-and-apis)
+      - [Synchronous code](#synchronous-code)
+      - [Asynchronous code](#asynchronous-code)
+      - [What is AJAX calls?](#what-is-ajax-calls)
+      - [API](#api)
+      - [XMLHttpRequest](#xmlhttprequest)
+    - [Promises and the Fetch API](#promises-and-the-fetch-api)
+      - [Promises](#promises)
+      - [The promises lifecycle](#the-promises-lifecycle)
+    - [Consuming Promises](#consuming-promises)
+      - [Chaining promises](#chaining-promises)
   - [Links bibliography](#links-bibliography)
 
 ## JavaScript Fundamentals – Part 1
@@ -384,6 +397,18 @@ document.addEventListener('keydown', function(e) {
 dice.src = `dice-${rollNumber}.png`;
 ```
 
+### Container add html from javascript
+
+```javascript
+const data = "hello"
+const nameContainer = document.querySelector('.containerClass');
+const html = 
+`
+  <h1>${data}</h1>
+`
+nameContainer.insertAdjacentHTML('beforeend',html);
+```
+
 ## Data Structures, Modern Operators and Strings
 
 ### Destructuring
@@ -431,6 +456,8 @@ const month = date[1]
 const day = date[2]
 // Destructure Array values into variables
 const [year, month, day] = date
+console.log(year, month, day)
+// 1970 12 01
 ```
 
 ### Spread
@@ -922,6 +949,111 @@ An immediately invoked function expression, or IIFE (pronounced iffy), is a func
   return a + b;
 }(2,3))
 ```
+
+## Asynchronous Javascript: Promises, Async/Await, and AJAX
+
+### Asynchronous Javascript, AJAX and APIs
+
+#### Synchronous code
+
+- Synchronous code is executed line by line.
+- Each one of code waits for previous line to finish.
+- So, it can be the cause of 'blocking' when the code has something that makes it stop, such as a timer, input,...
+
+#### Asynchronous code
+
+- Asynchronous code is executed after a task that runs in the "background" finishes. (More on "background in the lecture on Event Loop")
+- Asynchronous code is non-blocking.
+- Execution doesn't wait for an asynchronous task to finish its work.
+
+#### What is AJAX calls?
+
+Asynchronous Javascript And XML: Allows us to communicate with remote web servers in an asynchronous way. With AJAX calls, we can request data from web servers dynamically.
+
+#### API
+
+Application Programming Interface: Piece of software that we can used by another piece of software, in order to allow appications to talk to each other.
+
+#### XMLHttpRequest
+
+```javascript
+const request = XMLHttpRequest();
+request.open('HTTP_METHOD','url');
+request.send();
+request.addEventListener('load', function() {
+  const [data] = JSON.parse(this.responseText);
+  console.log(data);
+})
+```
+
+### Promises and the Fetch API
+
+#### Promises
+
+An object that is used as a placeholder for the future result of an asynchronous operation.
+
+-> Less formal: A container for an asynchronously delivered value.
+
+-> Less formal: A container for a future value.
+
+Instead of nesting callbacks, we can chain promises for a sequence of asynchronous operations: escaping callback hell.
+
+#### The promises lifecycle
+
+```
+                                ┌────────┐
+                         ┌─────►│Fulfille│
+                         │      └────────┘
+┌───────┐Async task  ┌───┴───┐
+│Pending├───────────►│Settled│
+└───────┘            └───┬───┘
+                         │      ┌────────┐
+                         └─────►│Rejected│
+                                └────────┘
+```
+
+### Consuming Promises
+
+```javascript
+const getData = function() {
+  fetch(`url.api.com`).then(function(response) {
+    console.log(response);
+    return response;
+  })
+}
+getData();
+```
+
+Example get country data:
+
+```javascript
+const getCountryData = function(country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+  .then(function(response) {
+    console.log(response);
+    return response.json(); // it returns a promises AGAIN!
+  }).then(function(data) {
+    console.log(data);
+    return data;
+  })
+}
+getCountryData('VietNam');
+```
+
+Using narrow function:
+
+```javascript
+const getCountryData = function(country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+  .then((response) => response.json())
+  .then((data) => data)
+}
+getCountryData('VietNam');
+```
+
+#### Chaining promises
+
+Chaining promises is a powerful way to sequence asynchronous operations in a more readable and maintainable manner. Each .then() in a promise chain returns a new promise, allowing you to chain multiple asynchronous operations together.
 
 ## Links bibliography
 
