@@ -59,5 +59,6 @@ need a global variable for that 😉)
 
 5. After the 2 seconds have passed, hide the current image
 Test data: Images in the img folder. Test the error handler by passing a wrong
-image path. Set the network speed to “Fast 3G” in the dev tools Network tab,
-otherwise images load too fast
+image path. Set the network speed to “Fast 3G” in the dev tools Network tab, otherwise images load too fast
+
+Test data: Images in the img folder. Test the error handler by passing a wrong image path. Set the network speed to “Fast 3G” in the dev tools Network tab, otherwise images load too fast

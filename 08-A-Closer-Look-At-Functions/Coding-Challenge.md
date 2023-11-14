@@ -1,4 +1,6 @@
-/*
+## Code Challenge 1
+
+```
 Let's build a simple poll app!
 A poll has a question, an array of options from which people can choose, and an array with the number of replies for each option. This data is stored in the starter 'poll' object below.
 
@@ -24,38 +26,11 @@ Your tasks:
 Test data for bonus:
 § Data 1: [5, 2, 3]
 § Data 2: [1, 5, 3, 9, 6, 1]
-*/
+```
 
-// const poll = {
-//     answers:[0,0,0,0],
-//     registerNewAnswer: function() {
-//         let input;
-//         input = Number(prompt(" What is your favourite programming language?\n0: JavaScript\n1: Python\n2: Rust\n3: C++\n(Write option number)"));
-//         if (typeof input === 'number' && input >= 0 && input <= 3)
-//             this.answers[Number(input)]++;
-//         this.displayResult()
-//         this.displayResult('string')
-//     },
-//     displayResult: function(type='array') {
-//         if (type === 'array') {
-//             console.log(this.answers)
-//         }
-//         else if(type === 'string') {
-//             console.log(`Poll results are ${this.answers.join(', ')}`)
-//         }
-//     }
-// }
+## Code Challenge 2
 
-// document.querySelector('.poll').addEventListener('click',poll.registerNewAnswer.bind(poll))
-
-// poll.displayResult.call({answers: [5, 2, 3]},'string')
-// poll.displayResult.call({answers: [1, 5, 3, 9, 6, 1]})
-
-
-/////////////////////
-
-/*
-Code Challenge 2
+```
 Your tasks:
 1. Take the IIFE below and at the end of the function, attach an event listener that
 changes the color of the selected h1 element ('header') to blue, each time
@@ -64,15 +39,4 @@ the body element is clicked. Do not select the h1 element again!
 2. And now explain to yourself (or someone around you) why this worked! Take all
 the time you need. Think about when exactly the callback function is executed,
 and what that means for the variables involved in this example.
-*/
-
-(function () {
-    const header = document.querySelector('h1');
-    header.style.color = 'red';
-    document.querySelector('body').addEventListener
-    ('click',function(){
-        header.style.color = 'blue'
-    });
-})();
-
-
+```

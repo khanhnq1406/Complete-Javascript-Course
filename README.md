@@ -91,6 +91,15 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
       - [The promises lifecycle](#the-promises-lifecycle)
     - [Consuming Promises](#consuming-promises)
       - [Chaining promises](#chaining-promises)
+    - [Handling Rejected Promises](#handling-rejected-promises)
+      - [Method 1: Using callback function](#method-1-using-callback-function)
+      - [Method 2: Using `.catch()` method](#method-2-using-catch-method)
+    - [Throwing Errors Manually](#throwing-errors-manually)
+    - [Asynchronous Behind the Scenes: The Event Loop](#asynchronous-behind-the-scenes-the-event-loop)
+      - [Some definitions](#some-definitions)
+      - [How does asynchronous JavaScript work behind the scenes?](#how-does-asynchronous-javascript-work-behind-the-scenes)
+    - [Building a simple promise](#building-a-simple-promise)
+      - [Reference](#reference-1)
   - [Links bibliography](#links-bibliography)
 
 ## JavaScript Fundamentals – Part 1
@@ -1054,6 +1063,123 @@ getCountryData('VietNam');
 #### Chaining promises
 
 Chaining promises is a powerful way to sequence asynchronous operations in a more readable and maintainable manner. Each .then() in a promise chain returns a new promise, allowing you to chain multiple asynchronous operations together.
+
+### Handling Rejected Promises
+
+#### Method 1: Using callback function
+
+```javascript
+const getCountryData = function(country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+  .then((response) => response.json(), (err) => console.log(err) // Handling Rejected Promises)
+  .then((data) => data, (err) => console.log(err) // Handling Rejected Promises);
+}
+getCountryData('VietNam');
+```
+
+#### Method 2: Using `.catch()` method
+
+```javascript
+const getCountryData = function(country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+  .then((response) => response.json())
+  .then((data) => data)
+  .catch(err => console.log(err)); // Just need one Handling Rejected Promises
+  .finally(()=>{
+    // Always do this function even if promises is fulfilled or rejected
+  })
+}
+getCountryData('VietNam');
+```
+
+### Throwing Errors Manually
+
+**Syntax:**
+
+```javascript
+throw new Error(`error message`);
+                   	│
+                   	▼
+          	.catch((err)=>console.log(err) // Output: error message);
+```
+
+For example:
+
+```javascript
+const getCountryData = function(country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+  .then((response) => 
+  {
+    if (!response.ok)
+      throw new Error(`Country not found (${response.status})`)
+    return response.json();
+  })
+  .catch(err => console.log(err)) // Country not found (404)
+  }
+```
+
+### Asynchronous Behind the Scenes: The Event Loop
+
+#### Some definitions
+
+In JavaScript, the event loop and various asynchronous programming techniques enable non-blocking behavior and the execution of concurrent tasks. Here's a simplified explanation of how asynchronous work works behind the scenes in JavaScript:
+
+- **Event Loop**: JavaScript utilizes an event loop to manage asynchronous tasks. The event loop continuously checks if there are any tasks to execute, such as callbacks or events, while also allowing the main thread to handle other operations.
+
+- **Callbacks**: Callback functions are a common way to handle asynchronous operations in JavaScript. When an asynchronous task is initiated, such as making an HTTP request or reading a file, a callback function is provided. Once the task completes, the event loop places the corresponding callback function in a queue for execution.
+
+- **Web APIs and Tasks**: JavaScript uses Web APIs (provided by the browser or runtime environment) to handle asynchronous tasks. These APIs include timers (setTimeout, setInterval), AJAX (XMLHttpRequest), and more. When an asynchronous task is started, it is offloaded to the appropriate Web API, allowing the main thread to continue executing.
+
+- **Task Queue**: After an asynchronous task is completed, its corresponding callback function is placed in the task queue. The event loop continuously checks the task queue and moves the callbacks to the call stack for execution when the call stack is empty.
+
+- **Microtasks**: JavaScript also has a microtask queue, which is used for **executing high-priority tasks**. Microtasks, such as promises (then and catch), mutation observers, or queueMicrotask, have a higher priority than regular tasks in the event loop and are executed before the next rendering.
+
+- **Event-driven Architecture**: JavaScript's asynchronous behavior is primarily event-driven. Events, such as user interactions (clicks, inputs) or system events, trigger corresponding event handlers or callback functions to execute asynchronously.
+
+#### How does asynchronous JavaScript work behind the scenes?
+
+The event loop decides when to execute each code task present in the callback queue and the micro-tasks queue. Let us understand the execution process of all the code in an imaginary situation. Let us try to generalize the process into different steps :
+All the code tasks present in the call stack are executed in an orderly fashion. It is synchronous and waits for the previous code task to be executed. In this step, all the code tasks in the call stack are executed.
+Once the asynchronous task finishes getting loaded in the background, it is sent to the callback queue. The callback function attached to this asynchronous task is waiting to be executed right here. This asynchronous is then queued up to be executed in the callback queue.
+Now, the part of event loops comes into play. The event loop continuously checks if the call stack is empty and once it finds it to be empty, it takes the first task in the callback queue and stacks it into the call stack which is then executed. This process continues until the event loop finds the call stack and callback queue to be empty.
+<img src=”https://nainacodes.com/static/images/understand-the-event-loop-in-javascript/async-2.png”/>
+
+<img src=”https://i.stack.imgur.com/Oc7O1.png”/>
+
+### Building a simple promise
+
+```javascript
+const promiseFunction = new Promise(function (resolve, reject) {
+  if (condition == true) {
+    resolve(‘Fulfilled message’); // it will pass the message to .then()
+  }
+  else {
+    reject(‘Rejected message’); // it will pass the message to .catch()
+  }
+})
+promiseFunction
+.then(res => console.log(res)) // Fulfilled message
+.catch(err => console.error(err)); // Rejected message
+```
+
+Promisifying setTimeout
+
+```javascript
+const wait = function(seconds) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds*1000);
+  })
+}
+wait(2).then(()=> {
+  console.log(‘Waited for 2 seconds’);
+  return wait(1);
+}).then(() => console.log(‘Waited for 1 second’));
+```
+
+#### Reference
+
+- https://nainacodes.com/blog/understand-the-event-loop-in-javascript
+- https://dev.to/vinaykishore/how-does-asynchronous-javascript-work-behind-the-scenes-4bjl
 
 ## Links bibliography
 

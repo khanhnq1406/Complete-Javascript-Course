@@ -30,7 +30,6 @@ const whereAmI = function(lat, lng) {
     const country = fetch(`https://geocode.maps.co/reverse?lat=${lat}&lon=${lng}`)
     // fetch(`https://geocode.xyz/api/${lat},${lng}?geoit=json`)
     .then(res => {
-        console.log(res.json);
         return res.json();
     })
     .then(data => {
