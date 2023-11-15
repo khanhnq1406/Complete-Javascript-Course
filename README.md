@@ -100,6 +100,15 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
       - [How does asynchronous JavaScript work behind the scenes?](#how-does-asynchronous-javascript-work-behind-the-scenes)
     - [Building a simple promise](#building-a-simple-promise)
       - [Reference](#reference-1)
+    - [Async/Await](#asyncawait)
+    - [Error Handling with try...catch](#error-handling-with-trycatch)
+    - [Returning Values from Async Function](#returning-values-from-async-function)
+    - [Running Promises in Parallel](#running-promises-in-parallel)
+    - [Other Promise Combinators: race, allSettled and any](#other-promise-combinators-race-allsettled-and-any)
+      - [Promise.race()](#promiserace)
+      - [Promise.allSettled()](#promiseallsettled)
+      - [Promise.any()](#promiseany)
+      - [Reference](#reference-2)
   - [Links bibliography](#links-bibliography)
 
 ## JavaScript Fundamentals – Part 1
@@ -1071,8 +1080,8 @@ Chaining promises is a powerful way to sequence asynchronous operations in a mor
 ```javascript
 const getCountryData = function(country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-  .then((response) => response.json(), (err) => console.log(err) // Handling Rejected Promises)
-  .then((data) => data, (err) => console.log(err) // Handling Rejected Promises);
+  .then((response) => response.json(), (err) => console.log(err)) // Handling Rejected Promises)
+  .then((data) => data, (err) => console.log(err)) // Handling Rejected Promises);
 }
 getCountryData('VietNam');
 ```
@@ -1100,7 +1109,7 @@ getCountryData('VietNam');
 throw new Error(`error message`);
                    	│
                    	▼
-          	.catch((err)=>console.log(err) // Output: error message);
+          	.catch((err)=>console.log(err)) // Output: error message);
 ```
 
 For example:
@@ -1142,9 +1151,10 @@ The event loop decides when to execute each code task present in the callback qu
 All the code tasks present in the call stack are executed in an orderly fashion. It is synchronous and waits for the previous code task to be executed. In this step, all the code tasks in the call stack are executed.
 Once the asynchronous task finishes getting loaded in the background, it is sent to the callback queue. The callback function attached to this asynchronous task is waiting to be executed right here. This asynchronous is then queued up to be executed in the callback queue.
 Now, the part of event loops comes into play. The event loop continuously checks if the call stack is empty and once it finds it to be empty, it takes the first task in the callback queue and stacks it into the call stack which is then executed. This process continues until the event loop finds the call stack and callback queue to be empty.
-<img src=”https://nainacodes.com/static/images/understand-the-event-loop-in-javascript/async-2.png”/>
 
-<img src=”https://i.stack.imgur.com/Oc7O1.png”/>
+<img src="https://nainacodes.com/static/images/understand-the-event-loop-in-javascript/async-2.png"/>
+
+<img src="https://i.stack.imgur.com/Oc7O1.png"/>
 
 ### Building a simple promise
 
@@ -1181,6 +1191,98 @@ wait(2).then(()=> {
 - https://nainacodes.com/blog/understand-the-event-loop-in-javascript
 - https://dev.to/vinaykishore/how-does-asynchronous-javascript-work-behind-the-scenes-4bjl
 
+### Async/Await
+
+Async/await is a powerful feature in JavaScript that simplifies asynchronous code and makes it look more like synchronous code, improving readability and maintainability. It's built on top of promises.
+
+1. **Async Function Declaration:**
+
+To use async/await, you declare a function as async. An async function always returns a promise, and it allows you to use the await keyword inside it.
+
+```javascript
+async function myAsyncFunction() {
+  // Code here
+}
+```
+
+2. **Await Expression:**
+
+Inside an async function, you can use the await keyword before an expression that returns a promise. The await keyword pauses the execution of the function until the promise is resolved, and then it resumes with the resolved value.
+
+```javascript
+async function fetchData() {
+  const response = await fetch('https://api.example.com/data');
+  const data = await response.json();
+  return data;
+}
+```
+
+In this example, fetchData is an async function that fetches data from an API using fetch. The await keyword is used to wait for the asynchronous fetch operation to complete before moving on.
+
+3. **Async/Await with Promise:**
+
+Async/await is often used with promises. You can use Promise.all to concurrently execute multiple asynchronous operations and Promise.race to get the result of the first completed operation.
+
+```javascript
+async function fetchDataWithPromiseAll() {
+  const [result1, result2] = await Promise.all([fetchData1(), fetchData2()]);
+  console.log('Result 1:', result1);
+  console.log('Result 2:', result2);
+}
+```
+
+### Error Handling with try...catch
+
+The **try** statement allows you to define a block of code to be tested for errors while it is being executed.
+
+The **catch** statement allows you to define a block of code to be executed, if an error occurs in the try block.
+
+The JavaScript statements try and catch come in pairs:
+
+```javascript
+try {
+  // Block of code to try
+}
+catch(err) {
+  // Block of code to handle errors
+}
+```
+
+### Returning Values from Async Function
+
+Implementation is in `async-await.js` file
+
+### Running Promises in Parallel
+
+The Promise.all() static method takes an **iterable of promises as input** and **returns a single Promise**. This returned promise fulfills **when all of the input's promises fulfill** (including when an empty iterable is passed), with an array of the fulfillment values. It **rejects when any of the input's promises rejects**, with this first rejection reason.
+
+```javascript
+async  function  getABC () {
+  // Promise.all() allows us to send all requests at the same time. 
+  let results = await Promise.all([ getValueA(), getValueB(), getValueC() ]); 
+
+  return results.reduce((total,value) => total * value);
+}
+```
+
+### Other Promise Combinators: race, allSettled and any
+
+#### Promise.race()
+
+The Promise.race() static method takes an **iterable of promises as input** and **returns a single Promise**. This returned promise settles with the eventual state of **the first promise that settles**.
+
+#### Promise.allSettled()
+
+The Promise.allSettled() static method takes an **iterable of promises as input** and **returns a single Promise**. This **returned promise fulfills** when all of the input's promises settle (including when an empty iterable is passed), **with an array of objects that describe the outcome of each promise**.
+
+#### Promise.any()
+
+The Promise.any() static method takes an iterable of promises as input and returns a single Promise. This **returned promise fulfills when any of the input's promises fulfills, with this first fulfillment value**. It **rejects when all of the input's promises reject** (including when an empty iterable is passed), with an **AggregateError containing an array of rejection reasons.**
+
+#### Reference
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
 ## Links bibliography
 
 - [Var, Let, and Const – What's the Difference?](https://www.freecodecamp.org/news/var-let-and-const-whats-the-difference/)
@@ -1200,3 +1302,7 @@ wait(2).then(()=> {
 - [JavaScript Function binding](https://www.geeksforgeeks.org/javascript-function-binding/)
 - [Tìm hiểu sâu hơn về scope Javascript](https://viblo.asia/p/tim-hieu-sau-hon-ve-scope-javascript-Qbq5QrRwKD8)
 - [Everything you wanted to know about JavaScript scope](https://ultimatecourses.com/blog/everything-you-wanted-to-know-about-javascript-scope)
+- [JavaScript Behind the Scenes: The Event Loop](https://nainacodes.com/blog/understand-the-event-loop-in-javascript)
+- [How does asynchronous JavaScript work behind the scenes?](https://dev.to/vinaykishore/how-does-asynchronous-javascript-work-behind-the-scenes-4bjl)
+- [JavaScript Errors](https://www.w3schools.com/js/js_errors.asp)
+- [Mozilla Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
