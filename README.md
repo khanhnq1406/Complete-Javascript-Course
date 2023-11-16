@@ -54,6 +54,7 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
     - [Handling a keypress event](#handling-a-keypress-event)
     - [Change src attribute](#change-src-attribute)
     - [Container add html from javascript](#container-add-html-from-javascript)
+  - [Advanced DOM and Events](#advanced-dom-and-events)
   - [Data Structures, Modern Operators and Strings](#data-structures-modern-operators-and-strings)
     - [Destructuring](#destructuring)
     - [Spread](#spread)
@@ -76,6 +77,16 @@ This is my learning process with course "The Complete JavaScript Course 2022: Fr
       - [Function Scope](#function-scope)
       - [Lexical Scope](#lexical-scope)
       - [Closures](#closures)
+    - [The this Keyword](#the-this-keyword)
+      - [How to create a function in object](#how-to-create-a-function-in-object)
+      - [this Keyword](#this-keyword)
+      - [Arrow and Regular Functions](#arrow-and-regular-functions)
+    - [Primitive Types and Reference Types](#primitive-types-and-reference-types)
+      - [Primitive Types](#primitive-types)
+      - [Reference Types](#reference-types)
+  - [A closer look at functions](#a-closer-look-at-functions)
+    - [How Passing Arguments Works: Value vs. Reference](#how-passing-arguments-works-value-vs-reference)
+    - [Callback functions](#callback-functions)
     - [The call and apply Methods](#the-call-and-apply-methods)
     - [The bind Method](#the-bind-method)
     - [Immediately invoked function expression](#immediately-invoked-function-expression)
@@ -418,14 +429,15 @@ dice.src = `dice-${rollNumber}.png`;
 ### Container add html from javascript
 
 ```javascript
-const data = "hello"
-const nameContainer = document.querySelector('.containerClass');
-const html = 
-`
+const data = "hello";
+const nameContainer = document.querySelector(".containerClass");
+const html = `
   <h1>${data}</h1>
-`
-nameContainer.insertAdjacentHTML('beforeend',html);
+`;
+nameContainer.insertAdjacentHTML("beforeend", html);
 ```
+
+## Advanced DOM and Events
 
 ## Data Structures, Modern Operators and Strings
 
@@ -436,45 +448,46 @@ Destructuring assignment is a syntax that allows you to assign object properties
 ```javascript
 const note = {
   id: 1,
-  title: 'My first note',
-  date: '01/01/1970',
-}
+  title: "My first note",
+  date: "01/01/1970",
+};
 // Destructure properties into variables
-const { id, title, date } = note
+const { id, title, date } = note;
 // Assign a custom name to a destructured value
-const { id: noteId, title, date } = note
+const { id: noteId, title, date } = note;
 ```
+
 You can also destructure nested object values. For example, update the note object to have a nested author object:
 
 ```javascript
 const note = {
   id: 1,
-  title: 'My first note',
-  date: '01/01/1970',
+  title: "My first note",
+  date: "01/01/1970",
   author: {
-    firstName: 'Sherlock',
-    lastName: 'Holmes',
+    firstName: "Sherlock",
+    lastName: "Holmes",
   },
-}
+};
 const {
   id,
   title,
   date,
   author: { firstName, lastName },
-} = note
+} = note;
 ```
 
 Array destructuring allows you to create new variables using an array item as a value. Consider this example, an array with the various parts of a date:
 
 ```javascript
-const date = ['1970', '12', '01']
+const date = ["1970", "12", "01"];
 // Create variables from the Array items
-const year = date[0]
-const month = date[1]
-const day = date[2]
+const year = date[0];
+const month = date[1];
+const day = date[2];
 // Destructure Array values into variables
-const [year, month, day] = date
-console.log(year, month, day)
+const [year, month, day] = date;
+console.log(year, month, day);
 // 1970 12 01
 ```
 
@@ -484,22 +497,22 @@ Spread syntax (...) is another helpful addition to JavaScript for working with a
 
 ```javascript
 // Create an Array
-const tools = ['hammer', 'screwdriver']
-const otherTools = ['wrench', 'saw']
+const tools = ["hammer", "screwdriver"];
+const otherTools = ["wrench", "saw"];
 // Unpack the tools Array into the allTools Array
-const allTools = [...tools, ...otherTools]
-console.log(allTools)
+const allTools = [...tools, ...otherTools];
+console.log(allTools);
 // ["hammer", "screwdriver", "wrench", "saw"]
 ```
 
 ```javascript
 // Array of users
 const users = [
-  { id: 1, name: 'Ben' },
-  { id: 2, name: 'Leslie' },
-]
+  { id: 1, name: "Ben" },
+  { id: 2, name: "Leslie" },
+];
 // Add new user
-const updatedUsers = [...users, newUser]
+const updatedUsers = [...users, newUser];
 ```
 
 Adding or modifying properties on an existing object in an immutable fashion is simplified with spread. In this example, the isLoggedIn property is added to the user object:
@@ -507,10 +520,10 @@ Adding or modifying properties on an existing object in an immutable fashion is 
 ```javascript
 const user = {
   id: 3,
-  name: 'Ron',
-}
-const updatedUser = { ...user, isLoggedIn: true }
-console.log(updatedUser)
+  name: "Ron",
+};
+const updatedUser = { ...user, isLoggedIn: true };
+console.log(updatedUser);
 // {id: 3, name: "Ron", isLoggedIn: true}
 ```
 
@@ -520,15 +533,15 @@ The last feature you will learn in this article is the rest parameter syntax. Th
 
 ```javascript
 function restTest(one, two, ...args) {
-  console.log(one, two, args)
+  console.log(one, two, args);
 }
-restTest(1, 2, 3, 4, 5, 6)
+restTest(1, 2, 3, 4, 5, 6);
 // 1 2 [3, 4, 5, 6]
 ```
 
 ```javascript
-const [firstTool, ...rest] = ['hammer', 'screwdriver', 'wrench']
-console.log(firstTool, rest)
+const [firstTool, ...rest] = ["hammer", "screwdriver", "wrench"];
+console.log(firstTool, rest);
 // hammer ["screwdriver", "wrench"]
 ```
 
@@ -553,16 +566,17 @@ https://www.digitalocean.com/community/tutorials/understanding-destructuring-res
 A JavaScript engine is a software component that executes JavaScript code.
 
 Some engines are used by browser:
-|          Browser         | Name of Javascript Engine |
+| Browser | Name of Javascript Engine |
 |:------------------------:|:-------------------------:|
-|       Google Chrome      |             V8            |
-| Edge (Internet Explorer) |           Chakra          |
-|      Mozilla Firefox     |       Spider Monkey       |
-|          Safari          |   Javascript Core Webkit  |
+| Google Chrome | V8 |
+| Edge (Internet Explorer) | Chakra |
+| Mozilla Firefox | Spider Monkey |
+| Safari | Javascript Core Webkit |
 
 <img src="https://rgbk21.github.io/Code/JavaScript/imgs/UdemyCourse/Module8/Image2.png"/>
 
 #### Compilation vs. Interpretation vs. Just-in-time (JIT) compilation
+
 **Compilation**: Entire code is converted into machine code at once, and writen to a binary file that can be executed by a computer
 
 **Interpretation**: interpreter runs through the source code and executes it line by line
@@ -621,7 +635,7 @@ Before you write a line of JavaScript, you’re in what we call the Global Scope
 
 ```javascript
 // global scope
-var name = 'Todd';
+var name = "Todd";
 ```
 
 #### Local scope
@@ -657,7 +671,7 @@ Whenever you see a function within another function, the inner function has acce
 // Scope A
 var myFunction = function () {
   // Scope B
-  var name = 'Todd'; // defined in Scope B
+  var name = "Todd"; // defined in Scope B
   var myOtherFunction = function () {
     // Scope C: `name` is accessible here!
   };
@@ -670,31 +684,30 @@ Closures ties in very closely with Lexical Scope. A better example of how the cl
 
 ```javascript
 var sayHello = function (name) {
-  var text = 'Hello, ' + name;
+  var text = "Hello, " + name;
   return function () {
     console.log(text);
   };
 };
-sayHello('Todd'); // nothing happens, no errors, just silence...
+sayHello("Todd"); // nothing happens, no errors, just silence...
 
-var helloTodd = sayHello('Todd');
+var helloTodd = sayHello("Todd");
 helloTodd(); // will call the closure and log 'Hello, Todd'
 ```
 
 **Reference:** https://ultimatecourses.com/blog/everything-you-wanted-to-know-about-javascript-scope
 
-```
 ### The this Keyword
 
 #### How to create a function in object
 
-```
+```javascript
 const person = {
   firstName: "abc",
-  lastName : "xyz",
-  fullName : function() {
+  lastName: "xyz",
+  fullName: function () {
     return this.firstName + " " + this.lastName;
-  }
+  },
 };
 ```
 
@@ -714,28 +727,32 @@ The `this` keyword refers to different objects depending on how it is used:
 #### Arrow and Regular Functions
 
 Arrow function
-```
+
+```javascript
 const increment = (num) => num + 1;
 increment(41); // => 42
 ```
+
 Regular Functions
-```
+
+```javascript
 function increment(num) {
-	return num+1
+  return num + 1;
 }
 increment(41); // => 42
 ```
 
-```
-const increment = function(num) {
-	return num+1
-}
+```javascript
+const increment = function (num) {
+  return num + 1;
+};
 increment(41); // => 42
 ```
 
 ### Primitive Types and Reference Types
 
 #### Primitive Types
+
 These data types are pretty simple, and are sometimes treated as the lowest level of implementation of a programming language. They are not objects, and do not have methods. Examples of such data types are **numbers, strings, booleans, null, and undefined**.
 
 When you declare a primitive data type in JavaScript, **it is stored on a stack**.
@@ -754,17 +771,17 @@ When you declare a reference data type in JavaScript, **it is stored on heap**.
 
 The main difference between value and reference is that passing by value happens when assigning primitives while passing by reference when assigning objects.
 
-```
+```javascript
 const val = "default";
 const arr = [1];
-const obj = {objValue:1}
-const change = function(paramVal, paramArr, paramObj) {
+const obj = { objValue: 1 };
+const change = function (paramVal, paramArr, paramObj) {
   paramVal = "changed";
   paramArr.push(2);
   paramObj.objValue = 2;
-}
-change(val, arr, obj)
-console.log(val, arr, obj)
+};
+change(val, arr, obj);
+console.log(val, arr, obj);
 // default [ 1, 2 ] { objValue: 2 }
 ```
 
@@ -773,15 +790,15 @@ console.log(val, arr, obj)
 A **callback function** is a function that is passed as an argument to another function, to be “called back” at a later time. A function that accepts other functions as arguments is called a **higher-order function**, which contains the logic for when the callback function gets executed. It’s the combination of these two that allow us to extend our functionality.
 
 ```javascript
-function createQuote(quote, callback){ 
+function createQuote(quote, callback) {
   var myQuote = "Like I always say, " + quote;
   callback(myQuote); // 2
 }
-function logQuote(quote){
+function logQuote(quote) {
   console.log(quote);
 }
 createQuote("eat your vegetables!", logQuote); // 1
-// Result in console: 
+// Result in console:
 // Like I always say, eat your vegetables!
 ```
 
@@ -798,20 +815,20 @@ In strict mode, when we use any function then this refers to undefined. In funct
 **Syntax:** `object.objectMethod.call( objectInstance, arguments )`
 
 ```javascript
-const obj1 = { 
-    firstName: "First_name", 
-    lastName: "Last_name"
-}; 
-const obj2 = { 
-    firstName: "Kane", 
-    lastName: "Nguyen"
-}; 
-function printName(profession, country) { 
-    console.log(this.firstName + " " 
-        + this.lastName + " " + 
-        profession + " " + country); 
-} 
-printName.call(obj2, "Developer", "Vietnam"); 
+const obj1 = {
+  firstName: "First_name",
+  lastName: "Last_name",
+};
+const obj2 = {
+  firstName: "Kane",
+  lastName: "Nguyen",
+};
+function printName(profession, country) {
+  console.log(
+    this.firstName + " " + this.lastName + " " + profession + " " + country
+  );
+}
+printName.call(obj2, "Developer", "Vietnam");
 // Kane Nguyen Developer Vietnam
 ```
 
@@ -822,20 +839,20 @@ Just like the call method we can also **bind the function to any object**. Using
 **Syntax:** `object.objectMethod.apply(objectInstance, arrayOfArguments)`
 
 ```javascript
-const obj1 = { 
-    firstName: "First_name", 
-    lastName: "Last_name"
-}; 
-const obj2 = { 
-    firstName: "Kane", 
-    lastName: "Nguyen"
-}; 
-function printName(profession, country) { 
-    console.log(this.firstName + " "
-        + this.lastName + " " + 
-        profession + " " + country); 
-} 
-printName.apply(obj2, ["Developer", "Vietnam"]); 
+const obj1 = {
+  firstName: "First_name",
+  lastName: "Last_name",
+};
+const obj2 = {
+  firstName: "Kane",
+  lastName: "Nguyen",
+};
+function printName(profession, country) {
+  console.log(
+    this.firstName + " " + this.lastName + " " + profession + " " + country
+  );
+}
+printName.apply(obj2, ["Developer", "Vietnam"]);
 // Kane Nguyen Developer Vietnam
 ```
 
@@ -848,29 +865,29 @@ In JavaScript function binding happens using Bind() method. With this method, we
 For this example, we made a new variable function printFunc2 which refers to the function printFunc() of object geeks. Here the binding of this is lost, so no output is produced. To make sure that any binding of this is not to be lost, we are using Bind() method.
 
 ```javascript
-let geeks = { 
-    name: "ABC", 
-    printFunc: function () { 
-        console.log(this.name); 
-    } 
-}   
-let printFunc2 = geeks.printFunc; 
+let geeks = {
+  name: "ABC",
+  printFunc: function () {
+    console.log(this.name);
+  },
+};
+let printFunc2 = geeks.printFunc;
 printFunc2();
 //no output is produced by this code//
 ```
 
- By using the bind() method we can set the context of this to a particular object. So we can use other variables also to call the bound function. Use the bind() method in the previous example:
+By using the bind() method we can set the context of this to a particular object. So we can use other variables also to call the bound function. Use the bind() method in the previous example:
 
 ```javascript
-let geeks = { 
-    name: "ABC", 
-    printFunc: function () { 
-        console.log(this.name); 
-    } 
-} 
-let printFunc2 = geeks.printFunc.bind(geeks); 
-//using bind() 
-// bind() takes the object "geeks" as parameter// 
+let geeks = {
+  name: "ABC",
+  printFunc: function () {
+    console.log(this.name);
+  },
+};
+let printFunc2 = geeks.printFunc.bind(geeks);
+//using bind()
+// bind() takes the object "geeks" as parameter//
 printFunc2();
 /// Output: ABC
 ```
@@ -884,17 +901,17 @@ The member object borrows the fullname method from the person object:
 
 ```javascript
 const person = {
-  firstName:"John",
+  firstName: "John",
   lastName: "Doe",
   fullName: function () {
     return this.firstName + " " + this.lastName;
-  }
-}
+  },
+};
 
 const member = {
-  firstName:"Hege",
+  firstName: "Hege",
   lastName: "Nilsen",
-}
+};
 
 let fullName = person.fullName.bind(member);
 // Hege Nilsen
@@ -908,13 +925,13 @@ This example will try to display the person name after 3 seconds, but it will di
 
 ```javascript
 const person = {
-  firstName:"John",
+  firstName: "John",
   lastName: "Doe",
   display: function () {
     let x = document.getElementById("demo");
     x.innerHTML = this.firstName + " " + this.lastName;
-  }
-}
+  },
+};
 
 setTimeout(person.display, 3000);
 ```
@@ -927,18 +944,19 @@ This example will display the person name after 3 seconds:
 
 ```javascript
 const person = {
-  firstName:"John",
+  firstName: "John",
   lastName: "Doe",
   display: function () {
     let x = document.getElementById("demo");
     x.innerHTML = this.firstName + " " + this.lastName;
-  }
-}
+  },
+};
 let display = person.display.bind(person);
 setTimeout(display, 3000);
 ```
 
 **Reference:**
+
 - https://www.geeksforgeeks.org/javascript-function-binding/
 - https://www.w3schools.com/js/js_function_bind.asp
 
@@ -950,14 +968,14 @@ An immediately invoked function expression, or IIFE (pronounced iffy), is a func
 
 ```javascript
 (function functionName(args) {
- // function logic
+  // function logic
 })(args);
 ```
 
 ```javascript
 (function functionName(args) {
- // function logic
-}(args));
+  // function logic
+})(args);
 ```
 
 **Example:**
@@ -965,7 +983,7 @@ An immediately invoked function expression, or IIFE (pronounced iffy), is a func
 ```javascript
 (function sum(a, b) {
   return a + b;
-}(2,3))
+})(2, 3);
 ```
 
 ## Asynchronous Javascript: Promises, Async/Await, and AJAX
@@ -996,12 +1014,12 @@ Application Programming Interface: Piece of software that we can used by another
 
 ```javascript
 const request = XMLHttpRequest();
-request.open('HTTP_METHOD','url');
+request.open("HTTP_METHOD", "url");
 request.send();
-request.addEventListener('load', function() {
+request.addEventListener("load", function () {
   const [data] = JSON.parse(this.responseText);
   console.log(data);
-})
+});
 ```
 
 ### Promises and the Fetch API
@@ -1019,9 +1037,9 @@ Instead of nesting callbacks, we can chain promises for a sequence of asynchrono
 #### The promises lifecycle
 
 ```
-                                ┌────────┐
-                         ┌─────►│Fulfille│
-                         │      └────────┘
+                                ┌─────────┐
+                         ┌─────►│Fulfilled│
+                         │      └─────────┘
 ┌───────┐Async task  ┌───┴───┐
 │Pending├───────────►│Settled│
 └───────┘            └───┬───┘
@@ -1033,40 +1051,41 @@ Instead of nesting callbacks, we can chain promises for a sequence of asynchrono
 ### Consuming Promises
 
 ```javascript
-const getData = function() {
-  fetch(`url.api.com`).then(function(response) {
+const getData = function () {
+  fetch(`url.api.com`).then(function (response) {
     console.log(response);
     return response;
-  })
-}
+  });
+};
 getData();
 ```
 
 Example get country data:
 
 ```javascript
-const getCountryData = function(country) {
+const getCountryData = function (country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-  .then(function(response) {
-    console.log(response);
-    return response.json(); // it returns a promises AGAIN!
-  }).then(function(data) {
-    console.log(data);
-    return data;
-  })
-}
-getCountryData('VietNam');
+    .then(function (response) {
+      console.log(response);
+      return response.json(); // it returns a promises AGAIN!
+    })
+    .then(function (data) {
+      console.log(data);
+      return data;
+    });
+};
+getCountryData("VietNam");
 ```
 
 Using narrow function:
 
 ```javascript
-const getCountryData = function(country) {
+const getCountryData = function (country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-  .then((response) => response.json())
-  .then((data) => data)
-}
-getCountryData('VietNam');
+    .then((response) => response.json())
+    .then((data) => data);
+};
+getCountryData("VietNam");
 ```
 
 #### Chaining promises
@@ -1078,12 +1097,18 @@ Chaining promises is a powerful way to sequence asynchronous operations in a mor
 #### Method 1: Using callback function
 
 ```javascript
-const getCountryData = function(country) {
+const getCountryData = function (country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-  .then((response) => response.json(), (err) => console.log(err)) // Handling Rejected Promises)
-  .then((data) => data, (err) => console.log(err)) // Handling Rejected Promises);
-}
-getCountryData('VietNam');
+    .then(
+      (response) => response.json(),
+      (err) => console.log(err)
+    ) // Handling Rejected Promises)
+    .then(
+      (data) => data,
+      (err) => console.log(err)
+    ); // Handling Rejected Promises);
+};
+getCountryData("VietNam");
 ```
 
 #### Method 2: Using `.catch()` method
@@ -1115,16 +1140,15 @@ throw new Error(`error message`);
 For example:
 
 ```javascript
-const getCountryData = function(country) {
+const getCountryData = function (country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-  .then((response) => 
-  {
-    if (!response.ok)
-      throw new Error(`Country not found (${response.status})`)
-    return response.json();
-  })
-  .catch(err => console.log(err)) // Country not found (404)
-  }
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(`Country not found (${response.status})`);
+      return response.json();
+    })
+    .catch((err) => console.log(err)); // Country not found (404)
+};
 ```
 
 ### Asynchronous Behind the Scenes: The Event Loop
@@ -1211,7 +1235,7 @@ Inside an async function, you can use the await keyword before an expression tha
 
 ```javascript
 async function fetchData() {
-  const response = await fetch('https://api.example.com/data');
+  const response = await fetch("https://api.example.com/data");
   const data = await response.json();
   return data;
 }
@@ -1226,8 +1250,8 @@ Async/await is often used with promises. You can use Promise.all to concurrently
 ```javascript
 async function fetchDataWithPromiseAll() {
   const [result1, result2] = await Promise.all([fetchData1(), fetchData2()]);
-  console.log('Result 1:', result1);
-  console.log('Result 2:', result2);
+  console.log("Result 1:", result1);
+  console.log("Result 2:", result2);
 }
 ```
 
@@ -1242,8 +1266,7 @@ The JavaScript statements try and catch come in pairs:
 ```javascript
 try {
   // Block of code to try
-}
-catch(err) {
+} catch (err) {
   // Block of code to handle errors
 }
 ```
@@ -1257,11 +1280,11 @@ Implementation is in `async-await.js` file
 The Promise.all() static method takes an **iterable of promises as input** and **returns a single Promise**. This returned promise fulfills **when all of the input's promises fulfill** (including when an empty iterable is passed), with an array of the fulfillment values. It **rejects when any of the input's promises rejects**, with this first rejection reason.
 
 ```javascript
-async  function  getABC () {
-  // Promise.all() allows us to send all requests at the same time. 
-  let results = await Promise.all([ getValueA(), getValueB(), getValueC() ]); 
+async function getABC() {
+  // Promise.all() allows us to send all requests at the same time.
+  let results = await Promise.all([getValueA(), getValueB(), getValueC()]);
 
-  return results.reduce((total,value) => total * value);
+  return results.reduce((total, value) => total * value);
 }
 ```
 
